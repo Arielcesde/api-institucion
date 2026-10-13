@@ -1,4 +1,4 @@
-import { end_points } from "./config";
+
 
 export function getData() {
     fetch()
