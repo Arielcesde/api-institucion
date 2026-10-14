@@ -1,6 +1,27 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ADMINS } from '../../data/admins'
+import { useState } from 'react';
+import { setLocalStorage } from '../../utils/local-storage';
+import { token } from '../../utils/generators';
 
 export default function Login() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const redirect = useNavigate()
+  function buscarUsuario() {
+    let auth = ADMINS.find((item) => email == item.email && password == item.password)
+    return auth
+  }
+  function iniciarSesion(e) {
+    e.preventDefault()
+    if (buscarUsuario()) {
+      setLocalStorage("usuario", buscarUsuario())
+      setLocalStorage("token", token())
+      redirect("/estudiantes")
+    } else {
+      redirect("/login")
+    }
+  }
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
@@ -17,12 +38,13 @@ export default function Login() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
         <div className="bg-white py-8 px-6 sm:px-10 rounded-2xl border border-slate-200 shadow-2xs">
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+          <form onSubmit={(e) => iniciarSesion(e)} className="space-y-5">
             <div>
               <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
                 Correo Electrónico Institucional
               </label>
               <input
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 placeholder="usuario@ofbo.edu.co"
                 className="w-full px-3.5 py-2.5 text-sm bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-hidden focus:border-blue-500"
@@ -39,6 +61,7 @@ export default function Login() {
                 </span>
               </div>
               <input
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 placeholder="••••••••••••"
                 className="w-full px-3.5 py-2.5 text-sm bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-hidden focus:border-blue-500"
@@ -57,12 +80,12 @@ export default function Login() {
               <span className="text-xs text-slate-400">Periodo 2026-1</span>
             </div>
 
-            <Link
-              to="/estudiantes"
+            <button
+              type="submit"
               className="w-full flex items-center justify-center py-2.5 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-xs transition-colors"
             >
               Iniciar Sesión
-            </Link>
+            </button>
           </form>
         </div>
 
