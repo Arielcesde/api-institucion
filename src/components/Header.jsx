@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { getLocalStorage } from '../utils/local-storage'
 
 export default function Header() {
+  let usuario = getLocalStorage("usuario")
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,11 +52,11 @@ export default function Header() {
 
             <div className="flex items-center space-x-3 pl-3 border-l border-slate-200">
               <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-semibold flex items-center justify-center text-xs border border-blue-200">
-                JZ
+                {usuario.avatarIniciales}
               </div>
               <div className="hidden lg:block text-left">
-                <p className="text-xs font-semibold text-slate-800 leading-none">Jaime Zapata</p>
-                <p className="text-[11px] text-slate-500 mt-0.5">Coordinador Académico</p>
+                <p className="text-xs font-semibold text-slate-800 leading-none">{usuario.nombre}</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">{usuario.rol}</p>
               </div>
 
               <Link
