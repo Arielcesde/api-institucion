@@ -1,16 +1,13 @@
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
 import Login from '../pages/auth/Login';
 import UsersList from '../pages/users/List';
 import UsersCreate from '../pages/users/Create';
 import UsersUpdate from '../pages/users/Update';
-
 import CoursesList from '../pages/courses/List';
 import CoursesCreate from '../pages/courses/Create';
 import CoursesUpdate from '../pages/courses/Update';
-
 import EnrollmentsList from '../pages/enrollments/List';
 import EnrollmentsCreate from '../pages/enrollments/Create';
 import EnrollmentsUpdate from '../pages/enrollments/Update';
@@ -26,31 +23,58 @@ function MainLayout() {
     </div>
   );
 }
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />
+  },
+  {
+    path: "/main",
+    element: <MainLayout />,
+    children: [
+      {
+        path: "estudiantes",
+        element: <UsersList />
+      },
+      {
+        path: "estudiantes/nuevo",
+        element: <UsersCreate />
+      },
+      {
+        path: "estudiantes/editar",
+        element: <UsersUpdate />
+      },
+      {
+        path: "cursos",
+        element: <CoursesList />
+      },
+      {
+        path: "cursos/nuevo",
+        element: <CoursesCreate />
+      },
+      {
+        path: "cursos/editar",
+        element: <CoursesUpdate />
+      },
+      {
+        path: "matriculas",
+        element: <EnrollmentsList />
+      },
+      {
+        path: "matriculas/nuevo",
+        element: <EnrollmentsCreate />
+      },
+      {
+        path: "matriculas/editar",
+        element: <EnrollmentsUpdate />
+      }
+    ]
+  },
+
+])
 
 export default function RouterApp() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Navigate to="/estudiantes" replace />} />
-          
-          <Route path="estudiantes" element={<UsersList />} />
-          <Route path="estudiantes/nuevo" element={<UsersCreate />} />
-          <Route path="estudiantes/editar" element={<UsersUpdate />} />
-
-          <Route path="cursos" element={<CoursesList />} />
-          <Route path="cursos/nuevo" element={<CoursesCreate />} />
-          <Route path="cursos/editar" element={<CoursesUpdate />} />
-
-          <Route path="matriculas" element={<EnrollmentsList />} />
-          <Route path="matriculas/nuevo" element={<EnrollmentsCreate />} />
-          <Route path="matriculas/editar" element={<EnrollmentsUpdate />} />
-
-          <Route path="*" element={<Navigate to="/estudiantes" replace />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   );
 }
