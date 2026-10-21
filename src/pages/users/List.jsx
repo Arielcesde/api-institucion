@@ -1,93 +1,15 @@
 import { Link } from 'react-router-dom';
-
-const ESTUDIANTES_STATIC = [
-  {
-    id: "1",
-    nombre: "Carlos Andrés",
-    apellido: "Mendoza Gómez",
-    tipoDocumento: "CC",
-    numeroDocumento: "1024589632",
-    email: "carlos.mendoza@universidad.edu.co",
-    telefono: "+57 311 458 9621",
-    ciudad: "Bogotá",
-    direccion: "Cra. 15 # 85-30 Apt. 402",
-    semestre: 5,
-    carrera: "Ingeniería de Sistemas",
-    estado: "Activo"
-  },
-  {
-    id: "2",
-    nombre: "Mariana Lucía",
-    apellido: "Torres Rojas",
-    tipoDocumento: "CC",
-    numeroDocumento: "1098745632",
-    email: "mariana.torres@universidad.edu.co",
-    telefono: "+57 320 654 1289",
-    ciudad: "Medellín",
-    direccion: "Calle 10 # 43E-12",
-    semestre: 4,
-    carrera: "Diseño Digital y Multimedia",
-    estado: "Activo"
-  },
-  {
-    id: "3",
-    nombre: "Juan Camilo",
-    apellido: "Hernández Silva",
-    tipoDocumento: "CC",
-    numeroDocumento: "1015896321",
-    email: "camilo.hernandez@universidad.edu.co",
-    telefono: "+57 315 789 4512",
-    ciudad: "Cali",
-    direccion: "Av. 6N # 28N-45",
-    semestre: 3,
-    carrera: "Ingeniería de Sistemas",
-    estado: "Activo"
-  },
-  {
-    id: "4",
-    nombre: "Valentina",
-    apellido: "Pérez Castro",
-    tipoDocumento: "CC",
-    numeroDocumento: "1018965412",
-    email: "valen.perez@universidad.edu.co",
-    telefono: "+57 301 236 9874",
-    ciudad: "Barranquilla",
-    direccion: "Calle 79 # 51B-82",
-    semestre: 6,
-    carrera: "Ciencia de Datos",
-    estado: "Activo"
-  },
-  {
-    id: "5",
-    nombre: "Diego Alejandro",
-    apellido: "Ramírez Vargas",
-    tipoDocumento: "CC",
-    numeroDocumento: "1032456987",
-    email: "diego.ramirez@universidad.edu.co",
-    telefono: "+57 318 951 7423",
-    ciudad: "Bucaramanga",
-    direccion: "Cra. 27 # 36-14",
-    semestre: 8,
-    carrera: "Ingeniería de Sistemas",
-    estado: "Inactivo"
-  },
-  {
-    id: "6",
-    nombre: "Sofía Elena",
-    apellido: "Morales Ortiz",
-    tipoDocumento: "CE",
-    numeroDocumento: "589632147",
-    email: "sofia.morales@universidad.edu.co",
-    telefono: "+57 313 741 8529",
-    ciudad: "Bogotá",
-    direccion: "Calle 127 # 19-50",
-    semestre: 4,
-    carrera: "Ciencia de Datos",
-    estado: "Activo"
-  }
-];
+import { getData } from '../../api/services';
+import { end_points } from '../../api/config';
+import { useState, useEffect } from 'react';
 
 export default function UsersList() {
+  const [estudiantes, setEstudiantes] = useState([])
+  useEffect(() => {
+    getData(end_points.estudiantes)
+      .then((data) => setEstudiantes(data))
+  }, [])
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -200,7 +122,7 @@ export default function UsersList() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {ESTUDIANTES_STATIC.map((estudiante) => (
+              {estudiantes.map((estudiante) => (
                 <tr key={estudiante.id} className="hover:bg-slate-50/70 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-3">

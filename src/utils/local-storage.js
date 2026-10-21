@@ -1,5 +1,5 @@
 export function getLocalStorage(llave){
-    return JSON.parse(localStorage.getItem(llave)) || []
+    return JSON.parse(localStorage.getItem(llave))
 }
 
 export function setLocalStorage(llave, valor){

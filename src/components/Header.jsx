@@ -24,19 +24,19 @@ export default function Header() {
 
             <nav className="hidden md:flex items-center space-x-1">
               <Link
-                to="/estudiantes"
+                to="/main/estudiantes"
                 className="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors"
               >
                 Estudiantes
               </Link>
               <Link
-                to="/cursos"
+                to="/main/cursos"
                 className="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors"
               >
                 Cursos
               </Link>
               <Link
-                to="/matriculas"
+                to="/main/matriculas"
                 className="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors"
               >
                 Matrículas

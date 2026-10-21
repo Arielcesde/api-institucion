@@ -17,9 +17,9 @@ export default function Login() {
     if (buscarUsuario()) {
       setLocalStorage("usuario", buscarUsuario())
       setLocalStorage("token", token())
-      redirect("/estudiantes")
+      redirect("/main/estudiantes")
     } else {
-      redirect("/login")
+      redirect("/")
     }
   }
   return (
