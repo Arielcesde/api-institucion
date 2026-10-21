@@ -11,6 +11,7 @@ import CoursesUpdate from '../pages/courses/Update';
 import EnrollmentsList from '../pages/enrollments/List';
 import EnrollmentsCreate from '../pages/enrollments/Create';
 import EnrollmentsUpdate from '../pages/enrollments/Update';
+import ProtectedRoute from '../pages/ProtectedRoute';
 
 function MainLayout() {
   return (
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/main",
-    element: <MainLayout />,
+    element: <ProtectedRoute componente={<MainLayout />} />,
     children: [
       {
         path: "estudiantes",

@@ -1,7 +1,9 @@
 
 
-export function getData() {
-    fetch()
+export function getData(endpoint) {
+    return fetch(endpoint)
+        .then((response) => response.json())
+        .catch((error) => console.log(error))
 }
 
 export function createData() {
