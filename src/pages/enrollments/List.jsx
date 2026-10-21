@@ -1,84 +1,15 @@
 import { Link } from 'react-router-dom';
+import { getData } from '../../api/services';
+import { end_points } from '../../api/config';
+import { useState, useEffect } from 'react';
 
-const MATRICULAS_STATIC = [
-  {
-    id: "1",
-    codigo: "MAT-20261-001",
-    estudianteNombre: "Carlos Andrés Mendoza",
-    estudianteDoc: "CC 1024589632",
-    cursoTitulo: "Desarrollo Web Full Stack con Node.js y React",
-    cursoCodigo: "SIS-301",
-    periodo: "2026-1",
-    fechaMatricula: "18 Ene 2026",
-    monto: 450000,
-    metodoPago: "PSE",
-    estadoPago: "Aprobado",
-    estadoMatricula: "Finalizada",
-    notaFinal: "4.6"
-  },
-  {
-    id: "2",
-    codigo: "MAT-20261-002",
-    estudianteNombre: "Juan Camilo Hernández",
-    estudianteDoc: "CC 1015896321",
-    cursoTitulo: "Desarrollo Web Full Stack con Node.js y React",
-    cursoCodigo: "SIS-301",
-    periodo: "2026-1",
-    fechaMatricula: "20 Ene 2026",
-    monto: 450000,
-    metodoPago: "Tarjeta de Crédito",
-    estadoPago: "Aprobado",
-    estadoMatricula: "Finalizada",
-    notaFinal: "4.1"
-  },
-  {
-    id: "3",
-    codigo: "MAT-20261-003",
-    estudianteNombre: "Valentina Pérez Castro",
-    estudianteDoc: "CC 1018965412",
-    cursoTitulo: "Ciencia de Datos y Machine Learning Aplicado",
-    cursoCodigo: "DAT-402",
-    periodo: "2026-1",
-    fechaMatricula: "19 Ene 2026",
-    monto: 520000,
-    metodoPago: "PSE",
-    estadoPago: "Aprobado",
-    estadoMatricula: "Finalizada",
-    notaFinal: "4.8"
-  },
-  {
-    id: "4",
-    codigo: "MAT-20261-004",
-    estudianteNombre: "Mariana Lucía Torres",
-    estudianteDoc: "CC 1098745632",
-    cursoTitulo: "Diseño UX/UI y Prototipado",
-    cursoCodigo: "DSG-201",
-    periodo: "2026-1",
-    fechaMatricula: "21 Ene 2026",
-    monto: 380000,
-    metodoPago: "Transferencia Bancaria",
-    estadoPago: "Aprobado",
-    estadoMatricula: "En curso",
-    notaFinal: "—"
-  },
-  {
-    id: "5",
-    codigo: "MAT-20261-005",
-    estudianteNombre: "Sofía Elena Morales",
-    estudianteDoc: "CE 589632147",
-    cursoTitulo: "Ciencia de Datos y Machine Learning Aplicado",
-    cursoCodigo: "DAT-402",
-    periodo: "2026-1",
-    fechaMatricula: "25 Ene 2026",
-    monto: 520000,
-    metodoPago: "PSE",
-    estadoPago: "Pendiente",
-    estadoMatricula: "En curso",
-    notaFinal: "—"
-  }
-];
 
 export default function EnrollmentsList() {
+  const [matriculas, setMatriculas] = useState([])
+  useEffect(() => {
+    getData(end_points.matriculas)
+      .then((data) => setMatriculas(data))
+  }, [])
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -187,7 +118,7 @@ export default function EnrollmentsList() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {MATRICULAS_STATIC.map((mat) => (
+              {matriculas.map((mat) => (
                 <tr key={mat.id} className="hover:bg-slate-50/70 transition-colors">
                   <td className="px-6 py-4">
                     <span className="font-mono font-bold text-xs text-slate-900 block">
